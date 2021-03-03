@@ -79,15 +79,15 @@ class Cache():
             need_data (bool): Flag that determines whether the cache needs the data
         """
         logger.debug('Write miss for cache: {} and need data: {}'.format(self, need_data))
-        line.write(tag)
         self.pending_address = address
         # note that the num_invalidates to expect will appear after we have recieved all
         # the acknowledged invalidations
         Statistic.directory_request()
         num_invalidates = self.directory.write_miss(self, address, need_data)
         logger.debug(f"Cache {self} expecting {num_invalidates} invalidations")
-        
-        
+        Statistic.cache_probe()
+        line.write(tag)
+        logger.debug(f"Cache {self} probed and accessed to address: {address}")
 
     def _write_hit(self, line, tag, address):
         """This is when a write happens and the state of the line is Modified
@@ -100,7 +100,6 @@ class Cache():
         logger.debug('Read hit for cache: {}'.format(self))
         line.write(tag)
 
-        Statistic.cache_access()
         Statistic.private_access()
 
     # -- Reads -- #
@@ -143,11 +142,12 @@ class Cache():
             address (int): Address of the word 
         """
         logger.debug('Read miss for cache: {}'.format(self))
-        line.read(tag)
         Statistic.directory_request()
-        
-
         self.directory.read_miss(self, address)
+        # set cache state
+        line.set_state(MSI.SHARED)
+        line.read(tag)
+        
 
     def _read_hit(self, line, tag, address):
         """This is when a read happens and the state of either Shared or Modified
@@ -176,7 +176,6 @@ class Cache():
         tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
         line = self.cachelines[index]
 
-        Statistic.cache_probe()
         # check if the line is actuall valid
         if (tag == line.tag and line.valid == True):
             if (line.state == MSI.MODIFIED):
@@ -195,10 +194,11 @@ class Cache():
         logger.debug('Cache {} sending line {} to cache {}'.format(self, address, cache))
         tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
         line = self.cachelines[index]
-        # check state and tag hit
-        Statistic.cache_probe()
+        # check state and tag hit, we dont actually probe
+        # since these are overlapped and let directory deal with this
+            # Statistic.cache_probe()
         # access data to send to cache
-        Statistic.cache_access()
+        # Statistic.cache_access()
         return
 
     # -- Invalidations -- #
@@ -212,7 +212,7 @@ class Cache():
         logger.debug('Cache {} is invalidating line with address: {} asked from cache: {}'.format(self, address, cache))
         tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
         line = self.cachelines[index]
-        Statistic.cache_probe()
+        # Statistic.cache_probe()
 
         line.invalidate()
         cache.confirm_invalidation(address)

@@ -26,6 +26,10 @@ class Line():
 
     def invalidate(self):
         self.state = INVALID
+
+    def set_state(self, state):
+        self.state = state
+        Statistic.cache_probe()
         
     # -- Setters and Getters --
     @property

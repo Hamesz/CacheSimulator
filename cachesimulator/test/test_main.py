@@ -11,18 +11,6 @@ class TestMain(unittest.TestCase):
         print('\n')
         Statistic.reset()
 
-    def test_trace_test_1(self):
-        """This tests if read miss occurs properly after it has the line in shared
-        """
-        logger.info('test_trace_test_1')
-        file = r'C:\Users\James H\git\CacheSimulator\data\trace_test_RW_no_sharers.txt'
-        main(file)
-        # need to check the statistics object contains the correct info
-        expected_cache_probes = 2
-        expected_cache_access = 2
-        
-        self.check_statistics(expected_cache_probes, expected_cache_access)
-
     def test_B0(self):
         """Tests:
             P0 perfroms a write
@@ -35,7 +23,7 @@ class TestMain(unittest.TestCase):
 
         # expected requests
         expected_cache_access = 2
-        expected_cache_probes = 2
+        expected_cache_probes = 4
         expected_directory_request = 4
         expected_directory_access = 2
         expected_memory_accesses = 1
@@ -63,27 +51,6 @@ class TestMain(unittest.TestCase):
         self.assertEqual(expected_directory_request, actual_directory_request)
         self.assertEqual(expected_memory_accesses, actual_memory_accesses)
         self.assertEqual(expected_processor_hops, actual_processor_hops)
-
-    def test_validation_trace(self):
-        """This tests the validation trace file
-        """
-        logger.info('test_trace_test_1')
-        file = r'C:\Users\James H\git\CacheSimulator\data\test_trace.txt'
-        main(file)
-        # need to check the statistics object contains the correct info
-        expected_cache_probes = 2
-        expected_cache_access = 2
-
-        expected_private_accesses = 3
-        expected_remote_accesses = 6
-        expected_off_chip_accesses = 4
-        expected_total_accesses = 13
-        expected_r_writebacks = 2
-        expected_c_writebacks = 1
-        expected_invalidations_sent = 5
-
-        self.check_statistics(expected_cache_probes, expected_cache_access)
-        return
 
 
     def check_statistics(self, expected_cache_probes, expected_cache_access):

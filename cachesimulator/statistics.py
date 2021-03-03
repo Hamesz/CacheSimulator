@@ -51,6 +51,7 @@ class Statistic:
     REM_LATENCIES = []
     OFF_CHIP_LATENCIES = []
     TOTAL_LATENCY = 0 
+    TOTAL_LATENCY_PREV = TOTAL_LATENCY
 
     @classmethod
     def add_instructions(self):
@@ -62,14 +63,14 @@ class Statistic:
             and checks which type access (private remote etc)
             and then stores that latency
         """
-        total_latency = self.compute_current_latency()
+        instruction_latency = self.compute_current_latency()
 
         if(self.PRIVATE_ACCESSES != self.PRIVATE_ACCESSES_PREV):
-            self.PRIV_LATENCIES.append(total_latency)
+            self.PRIV_LATENCIES.append(instruction_latency)
         elif(self.REMOTE_ACCESSES_PREV != self.REMOTE_ACCESSES):
-            self.REM_LATENCIES.append(total_latency)
+            self.REM_LATENCIES.append(instruction_latency)
         elif(self.OFF_CHIP_ACCESS_PREV != self.OFF_CHIP_ACCESS):
-            self.OFF_CHIP_LATENCIES.append(total_latency)
+            self.OFF_CHIP_LATENCIES.append(instruction_latency)
         else:
             raise Exception(f"No type of access (remote, private or chip) was done for the end of this instruction")
 
@@ -80,6 +81,11 @@ class Statistic:
         self.PROCESSOR_HOPS_PREV =      self.PROCESSOR_HOPS
         self.MEMORY_ACCESSES_PREV =     self.MEMORY_ACCESSES
         self.DIRECTORY_HOPS_PREV =      self.DIRECTORY_HOPS
+        # statstics       
+        self.PRIVATE_ACCESSES_PREV = self.PRIVATE_ACCESSES      
+        self.REMOTE_ACCESSES_PREV = self.REMOTE_ACCESSES
+        self.OFF_CHIP_ACCESS_PREV = self.OFF_CHIP_ACCESS
+
 
     # latency requests
     @classmethod
@@ -182,6 +188,7 @@ class Statistic:
         self.REM_LATENCIES = []
         self.OFF_CHIP_LATENCIES = []
         self.TOTAL_LATENCY = 0 
+        self.TOTAL_LATENCY_PREV = self.TOTAL_LATENCY
 
     @classmethod
     def compute_current_latency(self):
@@ -229,6 +236,27 @@ class Statistic:
             return sum(self.OFF_CHIP_LATENCIES)/len(self.OFF_CHIP_LATENCIES)
         else:
             return 0
+
+    @classmethod
+    def debug_statistics(self):
+        string = f"""
+        Total Cache accesses: {self.CACHE_ACCESSES}
+            Instruction cache accesses: {self.CACHE_ACCESSES - self.CACHE_ACCESSES_PREV}
+        Total Cache probes: {self.CACHE_PROBES}
+            Instruction cache probes: {self.CACHE_PROBES - self.CACHE_PROBES_PREV}
+        Total SRAM Accesses: {self.SRAM_ACCESSES}
+            Instruction SRAM accesses: {self.SRAM_ACCESSES - self.SRAM_ACCESSES_PREV}
+        Total Processor Hops: {self.PROCESSOR_HOPS}
+            Instruction processor hops: {self.PROCESSOR_HOPS - self.PROCESSOR_HOPS_PREV}
+        Total Directory Accesses: {self.DIRECTORY_ACCESSES}
+            Instruction directory Accesses: {self.DIRECTORY_ACCESSES - self.DIRECTORY_ACCESSES_PREV}
+        Total Directory Requests/Hops: {self.DIRECTORY_HOPS}
+            Instruction directory requests/hops: {self.DIRECTORY_HOPS - self.DIRECTORY_HOPS_PREV}
+        Total Memory Accesses: {self.MEMORY_ACCESSES}
+            Instruction memory accesses: {self.MEMORY_ACCESSES - self.MEMORY_ACCESSES_PREV}
+        Instruction Latency: {self.compute_current_latency()}
+        """
+        return string
 
     @classmethod
     def key_statistics(self):

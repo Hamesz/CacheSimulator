@@ -1,4 +1,5 @@
 import logging
+from cachesimulator.config import NUMBER_OF_CACHES
 from cachesimulator.statistics import Statistic
 logger = logging.getLogger('cachesimulator.Logger')
 
@@ -34,13 +35,22 @@ class Directory():
             logger.debug('closest cache to {} is {}'.format(cache, cache_closest))
             # ask the closest cache to send the data to issuing cache 
             cache_closest.send_line(cache, address)
-            
-            Statistic.directory_request()
+            Statistic.directory_request()   # ask to send line
+            Statistic.cache_probe()
+            Statistic.cache_access() # for cache accessing data to send
+
+            furthest_distance = self._get_furthest_distance(cache_containers, cache)
+            Statistic.processor_hop(furthest_distance)
             Statistic.remote_access()
         else:
             # there is no cache that holds the data, we need to query memory and send it personally
             logger.debug('No cache has line {}, so fetching it from memory'.format(address))
             Statistic.memory_access()
+
+            logger.debug("Sending line to cache: {}".format(cache))
+            
+            Statistic.directory_request()
+
             Statistic.off_chip_access()
             pass
 
@@ -66,19 +76,29 @@ class Directory():
             self._send_invalidations(cache, cache_containers, address)
             Statistic.directory_request()
 
-            
             if (need_data):
                 closest_cache = self._get_closest_cache(cache_containers, cache)
                 closest_cache.send_line(cache, address)
+                # if the cache_containers > 1, then the data access overlaps
+                # with the acknowledged invalidation from processor hops 
+                if (len(cache_containers) > 1):
+                    pass
+                else:
+                    Statistic.cache_access()
+
+            # this is for invalidations
+            Statistic.cache_probe()
+
+            furthest_distance = self._get_furthest_distance(cache_containers, cache)
+            Statistic.processor_hop(furthest_distance)
 
             Statistic.invalidation_sent(len(cache_containers))
-            Statistic.directory_request()
             Statistic.remote_access()
 
             return len(cache_containers)
         # No sharers
         else:
-            logger.debug('No sharers so getting data from memory but should have already been done when doing read miss earlier')
+            logger.debug('No sharers so getting data from memory')
             # need to get from main memory and send to cache
             if (need_data):
                 Statistic.memory_access()
@@ -94,7 +114,7 @@ class Directory():
             return 0
 
     def _send_remote_read_miss(self, caches, address):
-        """Sends remote read miss to the caches so they can change their state to modified
+        """Sends remote read miss to the caches so they can change their state to Invalid
 
         Args:
             caches (list(Cache)): List of caches containing the address
@@ -113,18 +133,6 @@ class Directory():
             address (int): Address of the word
         """
         logger.debug('Sending invalidations to caches: {} for address {}'.format(caches, address))
-        distances = []
-        # getting furthest cache to send invalidation too
-        for c in caches:
-            distance = ((cache.id - c.id)) % (len(caches) + 1)
-            logger.debug('Distance between cache {} & {}: {}'.format(cache, c, distance))
-            distances.append(distance)
-        
-        max_distance = max(distances)
-        max_index = distances.index(max_distance)
-        furthest_cache = caches[max_index]
-        Statistic.processor_hop(max_distance)
-
         for c in caches:
             c.invalidate_line(address, cache)
 
@@ -139,7 +147,6 @@ class Directory():
             list(Cache): list of caches which contain the address
         """
         logger.debug('Getting sharers for address {}'.format(address))
-        Statistic.directory_access()
         cache_containers = []
         for c in self.sharers:
             if (cache != c):
@@ -147,6 +154,7 @@ class Directory():
                 # if this cache contains the address then add it to containers
                 if (contains):
                     cache_containers.append(c)
+        Statistic.directory_access()
         return cache_containers
 
     def _get_closest_cache(self, caches, cache):
@@ -163,20 +171,37 @@ class Directory():
         logger.debug('Finding closest cache with caches: {}, to closest cache: {}'.format(caches, cache))
         distances = []
         for c in caches:
-            distance = ((cache.id - c.id)) % (len(caches) + 1)
+            distance = ((cache.id - c.id)) % (NUMBER_OF_CACHES)
             logger.debug('Distance between cache {} & {}: {}'.format(cache, c, distance))
             distances.append(distance)
+        
         min_distance = min(distances)
-        max_distance = max(distances)
-
         min_index = distances.index(min_distance)
-        max_index = distances.index(max_distance)
-
         closest_cache = caches[min_index]
-        furthest_cache = caches[max_index]
 
-        # Statistic.processor_hop(max_distance)
         return closest_cache
+
+    def _get_furthest_distance(self, caches, cache):
+        """Gets the distance to the furthest cache using a ring network
+
+        Args:
+            caches (list(Cache)): List of caches 
+            cache (Cache): cache to compare distance to
+
+        Returns:
+            int: furthest distance to cache
+        """
+        distances = []
+        # getting furthest cache to send invalidation too
+        for c in caches:
+            distance = ((cache.id - c.id)) % (NUMBER_OF_CACHES)
+            logger.debug('Distance between cache {} & {}: {}'.format(cache, c, distance))
+            distances.append(distance)
+        
+        max_distance = max(distances)
+        max_index = distances.index(max_distance)
+        furthest_cache = caches[max_index]
+        return max_distance
 
     @property
     def sharers(self):

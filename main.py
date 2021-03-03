@@ -26,12 +26,16 @@ def main(trace_file):
         if (command == 'R'):
             Statistic.add_instructions()
             cache.read(address)
+            logger.info(Statistic.debug_statistics())
+            
             Statistic.end_instruction()
             logger.info(Statistic.key_statistics())
             input()
         elif(command == 'W'):
             Statistic.add_instructions()
             cache.write(address)
+            logger.info(Statistic.debug_statistics())
+
             Statistic.end_instruction()
             logger.info(Statistic.key_statistics())
             input()
