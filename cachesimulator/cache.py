@@ -212,7 +212,12 @@ class Cache():
         logger.debug('Cache {} is invalidating line with address: {} asked from cache: {}'.format(self, address, cache))
         tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
         line = self.cachelines[index]
-        # Statistic.cache_probe()
+        # check if the line is actuall valid
+        if (tag == line.tag and line.valid == True):
+            if (line.state == MSI.MODIFIED):
+                logger.debug('changing line {} to state Invalid'.format(line))
+                # line.state = MSI.SHARED
+                Statistic.coherence_writeback()
 
         line.invalidate()
         cache.confirm_invalidation(address)
