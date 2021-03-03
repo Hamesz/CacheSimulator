@@ -1,0 +1,416 @@
+<mxfile host="65bd71144e" modified="2021-03-01T15:41:33.629Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.53.2 Chrome/87.0.4280.141 Electron/11.2.1 Safari/537.36" etag="LWyvJIduegIS3Bh_XHKP" version="14.2.4" type="embed">
+    <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+        <mxGraphModel dx="2336" dy="1001" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="WIyWlLk6GJQsqaUBKTNV-0"/>
+                <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0"/>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-86" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-1" target="E_djoQ232h_1pHLGs2pH-4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-1" value="Address Aproporite Processor/Cache" style="rounded=1;whiteSpace=wrap;html=1;arcSize=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="280" y="40" width="160" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-69" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0" target="E_djoQ232h_1pHLGs2pH-62" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-200" y="290"/>
+                            <mxPoint x="-200" y="330"/>
+                            <mxPoint x="-307" y="330"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-70" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.999;exitY=0.56;exitDx=0;exitDy=0;exitPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0" target="E_djoQ232h_1pHLGs2pH-64" edge="1">
+                    <mxGeometry x="-0.6822" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="133" y="294"/>
+                            <mxPoint x="133" y="330"/>
+                            <mxPoint x="133" y="330"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-3" value="Probing local cache to match tag and check the state&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="-182.5" y="190" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-5" value="&amp;nbsp;Read&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-4" target="E_djoQ232h_1pHLGs2pH-3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-7" value="&amp;nbsp;Write&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-4" target="E_djoQ232h_1pHLGs2pH-6" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-4" value="Read/Write?" style="rhombus;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="320" y="130" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-13" value="&amp;nbsp;Yes&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="3" target="E_djoQ232h_1pHLGs2pH-10" edge="1">
+                    <mxGeometry x="-0.7772" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="375" y="290"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" target="E_djoQ232h_1pHLGs2pH-11" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="700" y="290" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="920" y="290"/>
+                            <mxPoint x="920" y="330"/>
+                            <mxPoint x="730" y="330"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-15" value="&amp;nbsp;No&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="3" target="E_djoQ232h_1pHLGs2pH-12" edge="1">
+                    <mxGeometry x="-0.7921" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="920" y="290"/>
+                            <mxPoint x="920" y="330"/>
+                            <mxPoint x="1078" y="330"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-6" target="3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-6" value="Probing local cache to match tag and check the state&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="637" y="190" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-10" target="E_djoQ232h_1pHLGs2pH-16" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-10" value="MODIFIED" style="rounded=1;whiteSpace=wrap;html=1;arcSize=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="322.5" y="350" width="105" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-11" target="E_djoQ232h_1pHLGs2pH-18" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-11" value="SHARED&lt;br&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="677.5" y="350" width="105" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-12" target="E_djoQ232h_1pHLGs2pH-28" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-12" value="INVALID" style="rounded=1;whiteSpace=wrap;html=1;arcSize=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="1025" y="350" width="105" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-16" value="Writing data to local cache &lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="280" y="410" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-18" target="E_djoQ232h_1pHLGs2pH-19" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-18" value="Send message to directory to invalidate other copies&lt;br&gt;5 cycles&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="635" y="410" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-19" target="E_djoQ232h_1pHLGs2pH-20" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-19" value="Directory access&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="635" y="485" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-23" value="&amp;nbsp;No&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-20" target="E_djoQ232h_1pHLGs2pH-22" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-60" value="&amp;nbsp;Yes&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-20" target="E_djoQ232h_1pHLGs2pH-103" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="910" y="640" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="890" y="620"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-20" value="Any Sharers ?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="680" y="570" width="100" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-22" target="E_djoQ232h_1pHLGs2pH-24" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-22" value="Directory responds that there are no sharers&lt;br&gt;5 cycles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="440" y="655" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-24" target="E_djoQ232h_1pHLGs2pH-25" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-24" value="Probing local cache to change the state&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="440" y="735" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-25" value="Writing data to local cache&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="440" y="815" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-28" target="E_djoQ232h_1pHLGs2pH-30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-28" value="Send message to directory to invalidate other copies&lt;br&gt;5 cycles&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="982.5" y="410" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-30" target="E_djoQ232h_1pHLGs2pH-31" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-30" value="Directory access&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="982.5" y="485" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-34" value="&amp;nbsp;No&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-31" target="E_djoQ232h_1pHLGs2pH-35" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1265" y="680" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-46" value="&amp;nbsp;Yes&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-31" target="E_djoQ232h_1pHLGs2pH-103" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="850" y="660" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="890" y="620"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-31" value="Any Sharers ?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="1027.5" y="570" width="100" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-35" target="E_djoQ232h_1pHLGs2pH-36" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-35" value="Directory receives data from memory after finding no on-chip sharers&lt;br&gt;15 cycles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="1146" y="650" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-36" target="E_djoQ232h_1pHLGs2pH-37" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-36" value="Directory sends data to P0&lt;br&gt;5 cycles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="1145.5" y="730" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-37" target="E_djoQ232h_1pHLGs2pH-39" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-37" value="Probing local cache to change the state&lt;br&gt;1 cycle&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="1146" y="810" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-39" value="&lt;span style=&quot;text-align: left&quot;&gt;Writing data to local cache&lt;br&gt;1 cycle&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="1146" y="890" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-106" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-47" target="E_djoQ232h_1pHLGs2pH-105" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-47" value="Probe cache at FURTHEST SHARER to match tag and check the state&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="677.5" y="890" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-48" value="- Directory sends message to (the closest sharer) to invalidate and forward the line&lt;br&gt;0 cycles (latency is overlapped)&lt;br&gt;&lt;br&gt;- Probe cache at P3 to match tag and check the state : &lt;br&gt;0 cycles (latency is overlapped)&lt;br&gt;&lt;br&gt;- Access cache at P3 to forward line to P0 : &lt;br&gt;0 cycles (latency is overlapped)&lt;br&gt;&lt;br&gt;- Directory sends message to P0 to indicate how many acknowledgements to expect : &lt;br&gt;0 cycles (this is always overlapped)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=13;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="1340" y="32.5" width="190" height="255" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-50" target="E_djoQ232h_1pHLGs2pH-56" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-50" value="FURTHEST&amp;nbsp;&amp;nbsp;SHARER&amp;nbsp;sends invalidation acknowledgement and data to CURRENT ONE&lt;br&gt;&lt;font color=&quot;#ff0000&quot;&gt;x cycles&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="677.5" y="1050" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-54" value="0 latency stuff" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="1030" y="130" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-55" value="Not needed to wrok" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;strokeWidth=2;shape=mxgraph.arrows2.arrow;dy=0.74;dx=43.33;notch=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="1230" y="125" width="100" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-56" target="E_djoQ232h_1pHLGs2pH-58" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-56" value="Probing local cache to change the state&lt;br&gt;1 cycle&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="677.5" y="1130" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-58" value="&lt;span style=&quot;text-align: left&quot;&gt;Writing data to local cache&lt;br&gt;1 cycle&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="677.5" y="1210" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-62" target="E_djoQ232h_1pHLGs2pH-65" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-62" value="MODIFIED" style="rounded=1;whiteSpace=wrap;html=1;arcSize=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="-360" y="350" width="105" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-63" target="E_djoQ232h_1pHLGs2pH-65" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-63" value="SHARED&lt;br&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="-140" y="350" width="105" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-64" target="E_djoQ232h_1pHLGs2pH-71" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-64" value="INVALID" style="rounded=1;whiteSpace=wrap;html=1;arcSize=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="80" y="350" width="105" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-65" value="Reading data from local cache&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="-290" y="450" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-74" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-71" target="E_djoQ232h_1pHLGs2pH-72" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-71" value="Send message to directory to request data&lt;br&gt;5 cycles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="37.5" y="410" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-76" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-72" target="E_djoQ232h_1pHLGs2pH-75" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-72" value="Directory access&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="37.5" y="485" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-77" value="&amp;nbsp;Yes&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-75" target="E_djoQ232h_1pHLGs2pH-87" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="250" y="619.9999999999998" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-78" value="&amp;nbsp;No&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-75" target="E_djoQ232h_1pHLGs2pH-79" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="10" y="619.9999999999998" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-75" value="Any Sharers ?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="82.5" y="570" width="100" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-79" target="E_djoQ232h_1pHLGs2pH-80" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-79" value="Directory receives data from memory after finding no on-chip sharers&lt;br&gt;15 cycles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="-110" y="650" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-83" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-80" target="E_djoQ232h_1pHLGs2pH-82" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-80" value="Directory sends data to CURRENT CACHE&lt;br&gt;5 cycles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="-115" y="735" width="200" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-85" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-82" target="E_djoQ232h_1pHLGs2pH-84" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-82" value="Probing local cache to change the state&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="-110" y="815" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-84" value="Reading data from local cache&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="-110" y="890" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-95" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-87" target="E_djoQ232h_1pHLGs2pH-88" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-87" value="Directory sends message to FURTHEST&amp;nbsp;SHARER to forward the line &lt;br&gt;5 cycles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="185" y="652.5" width="190" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-96" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-88" target="E_djoQ232h_1pHLGs2pH-89" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-88" value="Probe cache at FURTHEST&amp;nbsp;SHARER to match tag and check state&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="185" y="732.5" width="190" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-97" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-89" target="E_djoQ232h_1pHLGs2pH-90" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-89" value="Access cache at FURTHEST&amp;nbsp;SHARER&amp;nbsp;&amp;nbsp;to forward line to CURRENT CACHE&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="185" y="812.5" width="190" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-98" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-90" target="E_djoQ232h_1pHLGs2pH-93" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-90" value="FURTHEST&amp;nbsp;SHARER sends data to CURRENT CACHE&lt;br&gt;&lt;font color=&quot;#ff0000&quot;&gt;x cycles&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="185" y="890" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-99" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-93" target="E_djoQ232h_1pHLGs2pH-94" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-93" value="Probing local cache to change the state&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="185" y="980" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-94" value="Reading data from local cache&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="185" y="1055" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-110" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-100" target="E_djoQ232h_1pHLGs2pH-108" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-100" value="Directory sends message to FURTHEST&amp;nbsp;SHARER to invalidate and forward the line&lt;br&gt;5 cycles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="677.5" y="730" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-104" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-103" target="E_djoQ232h_1pHLGs2pH-100" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="773" y="680"/>
+                            <mxPoint x="773" y="710"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-130" value="&amp;gt;1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-103" target="E_djoQ232h_1pHLGs2pH-120" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1005" y="680"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-103" value="How many sharers ?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="840" y="630" width="100" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-107" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-105" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="772.5" y="969.9999999999998" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-109" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-105" target="E_djoQ232h_1pHLGs2pH-50" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-105" value="Access cache at FURTHEST&amp;nbsp;SHARER to forward line to CURRENT CACHE&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="677.5" y="970" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-111" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-108" target="E_djoQ232h_1pHLGs2pH-47" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-108" value="0 latency stuff" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="677.5" y="807.5" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-127" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-113" target="E_djoQ232h_1pHLGs2pH-126" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-113" value="Probe cache at FURTHEST&amp;nbsp;SHARER to match tag and check the state&lt;br&gt;1 cycle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="910" y="810" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-114" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-115" target="E_djoQ232h_1pHLGs2pH-117" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-115" value="FURTHEST&amp;nbsp;SHARER&amp;nbsp;sends invalidation acknowledgement and data to CURRENT ONE&lt;br&gt;&lt;font color=&quot;#ff0000&quot;&gt;x cycles&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="910" y="975" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-116" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-117" target="E_djoQ232h_1pHLGs2pH-118" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-117" value="Probing local cache to change the state&lt;br&gt;1 cycle&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="910" y="1050" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-118" value="&lt;span style=&quot;text-align: left&quot;&gt;Writing data to local cache&lt;br&gt;1 cycle&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="910" y="1130" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-120" value="Directory sends message to FURTHEST&amp;nbsp;SHARER to invalidate and forward the line&lt;br&gt;5 cycles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="910" y="730" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-129" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-126" target="E_djoQ232h_1pHLGs2pH-115" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E_djoQ232h_1pHLGs2pH-126" value="0 latency stuff" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+                    <mxGeometry x="910" y="890" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0" target="E_djoQ232h_1pHLGs2pH-63">
+                    <mxGeometry x="-0.7352" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-200" y="290"/>
+                            <mxPoint x="-200" y="330"/>
+                            <mxPoint x="-87" y="330"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="0" value="tags match ?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+                    <mxGeometry x="-127.5" y="260" width="80" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E_djoQ232h_1pHLGs2pH-3" target="0">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                        <mxPoint x="-87.5" y="240" as="sourcePoint"/>
+                        <mxPoint x="132.5" y="350" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="3" value="tags match ?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+                    <mxGeometry x="692" y="260" width="80" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
