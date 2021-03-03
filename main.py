@@ -30,7 +30,7 @@ def main(trace_file):
             
             Statistic.end_instruction()
             logger.info(Statistic.key_statistics())
-            input()
+            # input()
         elif(command == 'W'):
             Statistic.add_instructions()
             cache.write(address)
@@ -38,7 +38,7 @@ def main(trace_file):
 
             Statistic.end_instruction()
             logger.info(Statistic.key_statistics())
-            input()
+            # input()
         # deal with other stuff
         elif(command == 'v'):
             print('switch line by line reading')

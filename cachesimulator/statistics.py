@@ -174,14 +174,16 @@ class Statistic:
 
         # statstics
         self.REMOTE_ACCESSES = 0         
-        self.PRIVATE_ACCESSES_PREV = self.PRIVATE_ACCESSES
-        self.OFF_CHIP_ACCESS = 0         
-        self.REMOTE_ACCESSES_PREV = self.REMOTE_ACCESSES
+        self.PRIVATE_ACCESSES = 0
+        self.OFF_CHIP_ACCESS = 0 
         self.REPLACEMENT_WRITEBACKS = 0
-        self.OFF_CHIP_ACCESS_PREV = self.OFF_CHIP_ACCESS
-
         self.COHERENCE_WRITEBACKS = 0
         self.INVALIDATIONS_SENT = 0
+        self.PRIVATE_ACCESSES_PREV = self.PRIVATE_ACCESSES        
+        self.REMOTE_ACCESSES_PREV = self.REMOTE_ACCESSES
+        self.OFF_CHIP_ACCESS_PREV = self.OFF_CHIP_ACCESS
+
+
         self.AVERAGE_LATENCY = 0
 
         self.PRIV_LATENCIES = []
