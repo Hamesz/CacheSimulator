@@ -210,14 +210,14 @@ class Cache():
         tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
         line = self.cachelines[index]
         # check if the line is actuall valid
-        # if (tag == line.tag and line.valid == True):
+        if (tag == line.tag and line.valid == True):
         #     if (line.state == MSI.MODIFIED):
                 # logger.debug('line w/ address {} is in modified so creating coherence writeback'.format(address))
                 # line.state = MSI.SHARED
                 # Statistic.coherence_writeback()
 
-        line.invalidate()
-        cache.confirm_invalidation(address)
+            line.invalidate()
+            cache.confirm_invalidation(address)
 
     def confirm_invalidation(self, address):
         """This is sent from another cache confirming an invalidation for a given address.
