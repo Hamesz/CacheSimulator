@@ -1,0 +1,13 @@
+Instruction: 2
+Private-accesses: 0
+Remote-accesses: 1
+Off-chip-accesses: 1
+Total-accesses: 2
+Replacement-writebacks: 0
+Coherence-writebacks: 0
+Invalidations-sent: 0
+Average-latency: 21.5
+Priv-average-latency: 0
+Rem-average-latency: 14.0
+Off-chip-average-latency: 29.0
+Total-latency: 43

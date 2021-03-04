@@ -1,4 +1,5 @@
 import logging
+import os
 logger = logging.getLogger('cachesimulator.Logger')
 
 class Latency:
@@ -262,18 +263,49 @@ class Statistic:
 
     @classmethod
     def key_statistics(self):
-        string = f"""
-        Instruction: {self.INSTRUCTIONS}
-        Private-accesses: {self.PRIVATE_ACCESSES}
-        Remote-accesses: {self.REMOTE_ACCESSES}
-        Off-chip-accesses: {self.OFF_CHIP_ACCESS}
-        Total-accesses: {self.PRIVATE_ACCESSES + self.REMOTE_ACCESSES + self.OFF_CHIP_ACCESS}
-        Replacement-writebacks: {self.REPLACEMENT_WRITEBACKS}
-        Coherence-writebacks: {self.COHERENCE_WRITEBACKS}
-        Invalidations-sent: {self.INVALIDATIONS_SENT}
-        Average-latency: {self.average_latency()}
-        Priv-average-latency: {self.priv_average_latency()}
-        Rem-average-latency: {self.rem_average_latency()}
-        Off-chip-average-latency: {self.off_chip_latency()}
-        Total-latency: {self.total_latency()}"""
+        string = f"""Instruction: {self.INSTRUCTIONS}
+Private-accesses: {self.PRIVATE_ACCESSES}
+Remote-accesses: {self.REMOTE_ACCESSES}
+Off-chip-accesses: {self.OFF_CHIP_ACCESS}
+Total-accesses: {self.PRIVATE_ACCESSES + self.REMOTE_ACCESSES + self.OFF_CHIP_ACCESS}
+Replacement-writebacks: {self.REPLACEMENT_WRITEBACKS}
+Coherence-writebacks: {self.COHERENCE_WRITEBACKS}
+Invalidations-sent: {self.INVALIDATIONS_SENT}
+Average-latency: {self.average_latency()}
+Priv-average-latency: {self.priv_average_latency()}
+Rem-average-latency: {self.rem_average_latency()}
+Off-chip-average-latency: {self.off_chip_latency()}
+Total-latency: {self.total_latency()}"""
         return string
+
+    @classmethod
+    def hit_rate(self):
+        """Calculates the hit rate by dividing the private accesses by 
+            number of instructions issued
+
+        Returns:
+            float: The hit rate
+        """
+        if (self.INSTRUCTIONS != 0):
+            return self.PRIVATE_ACCESSES/self.INSTRUCTIONS
+        else:
+            return 0
+
+def save_statistics(file_path):
+    """Saves the key statstics in the given path with
+        out_<trace_name>.txt.
+
+    Args:
+        file_path (string/path): Path to trace file
+    """
+    # get the filename and path
+    path = os.path.dirname(file_path)
+    name = os.path.basename(file_path)
+    # create new path file
+    file_name = f"out_{name}"
+    file = os.path.join(path,file_name)
+
+    # write to file, key statstics
+    f = open(file, "w")
+    f.write(Statistic.key_statistics())
+    f.close()

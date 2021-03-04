@@ -2,7 +2,7 @@ from cachesimulator.trace_parser import parse
 from cachesimulator.config import NUMBER_OF_CACHES
 from cachesimulator.directory import Directory
 from cachesimulator.cache import Cache
-from cachesimulator.statistics import Statistic
+from cachesimulator.statistics import Statistic, save_statistics
 import logging
 logger = logging.getLogger('cachesimulator.Logger')
 
@@ -42,14 +42,17 @@ def main(trace_file):
         # deal with other stuff
         elif(command == 'v'):
             print('switch line by line reading')
-            if (logger.getLevel() != logging.DEBUG):
-                logger.setLevel(logging.DEBUG)
+            if (logger.level != logging.DEBUG):
+                logger.setLevel(logging.INFO)
             else:
                 logger.setLevel(logging.WARNING)
         elif(command == 'h'):
-            print('Print out hit rate')
+            print(f"{Statistic.hit_rate()}")
         elif(command == 'p'):
             print('Print out cache content')
+    
+    # save statistics to file
+    save_statistics(trace_file)
 
 
 if __name__ == '__main__':
