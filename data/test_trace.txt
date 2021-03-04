@@ -1,6 +1,6 @@
 P0 R 1
-P1 R 1 
-P0 W 1 
+P1 R 1
+P0 W 1
 P0 W 1
 P0 R 1
 P2 R 1

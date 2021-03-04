@@ -91,67 +91,68 @@ class Statistic:
     # latency requests
     @classmethod
     def cache_probe(self):
-        logger.debug('-Cache probe-')
+        logger.info('-Cache probe-')
         self.CACHE_PROBES += 1
 
     @classmethod
     def cache_access(self):
-        logger.debug('-Cache access-')
+        logger.info('-Cache access-')
         self.CACHE_ACCESSES += 1
 
     @classmethod
     def sram_access(self):
+        logger.info("-SRAM access-")
         self.SRAM_ACCESSES += 1
 
     @classmethod
     def directory_access(self):
-        logger.debug('-Directory Access-')
+        logger.info('-Directory Access-')
         self.DIRECTORY_ACCESSES += 1
 
     @classmethod
     def processor_hop(self, hops):
-        logger.debug('-{} Proccessor hops-'.format(hops))
+        logger.info('-{} Proccessor hops-'.format(hops))
         self.PROCESSOR_HOPS += hops
 
     @classmethod
     def directory_request(self):
-        logger.debug('-Directory Request-')
+        logger.info('-Directory Request-')
         self.DIRECTORY_HOPS += 1
 
     @classmethod
     def memory_access(self):
-        logger.debug('-Memory Access-')
+        logger.info('-Memory Access-')
         self.MEMORY_ACCESSES += 1
 
     # statistics
     @classmethod
     def private_access(self):
-        logger.debug('-Private Access-')
+        logger.info('-Private Access-')
         self.PRIVATE_ACCESSES += 1
     
     @classmethod
     def remote_access(self):
-        logger.debug('-Remote Access-')
+        logger.info('-Remote Access-')
         self.REMOTE_ACCESSES += 1
 
     @classmethod
     def off_chip_access(self):
-        logger.debug('-Off Chip Access-')
+        logger.info('-Off Chip Access-')
         self.OFF_CHIP_ACCESS += 1
 
     @classmethod
     def replacement_writeback(self):
-        logger.debug('-Replacement Writeback-')
+        logger.info('-Replacement Writeback-')
         self.REPLACEMENT_WRITEBACKS += 1
 
     @classmethod
     def coherence_writeback(self):
-        logger.debug('-Coherence Writeback-')
+        logger.info('-Coherence Writeback-')
         self.COHERENCE_WRITEBACKS += 1
 
     @classmethod
     def invalidation_sent(self, num):
-        logger.debug(f'-{num} Invalidations Sent-')
+        logger.info(f'-{num} Invalidations Sent-')
         self.INVALIDATIONS_SENT += num
 
     @classmethod

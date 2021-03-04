@@ -4,7 +4,7 @@ Remote-accesses: 7
 Off-chip-accesses: 4
 Total-accesses: 14
 Replacement-writebacks: 2
-Coherence-writebacks: 2
+Coherence-writebacks: 1
 Invalidations-sent: 5
 Average-latency: 19.214285714285715
 Priv-average-latency: 2.0

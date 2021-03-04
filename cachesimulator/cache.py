@@ -39,7 +39,7 @@ class Cache():
         Returns:
             hit (bool): True if there is a write hit, else false
         """
-        logger.debug('cache {} writing to address: {}'.format(self, address))
+        logger.info('cache {} writing to address: {}'.format(self, address))
         tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)        
         line = self.cachelines[index]
 
@@ -65,6 +65,7 @@ class Cache():
             logger.debug('Line tag: {} vs addres tag: {}'.format(line.tag, tag))
             logger.debug('Line validity: {}'.format(line.valid))
             if (line.state == MSI.MODIFIED):
+                logger.info(f"Line w/ address {address} is in state Modified but tags don't match so creating replacement writeback")
                 Statistic.replacement_writeback()
             self._write_miss(line, tag, address, True)
             return False
@@ -78,7 +79,7 @@ class Cache():
             address (int): Address of the word 
             need_data (bool): Flag that determines whether the cache needs the data
         """
-        logger.debug('Write miss for cache: {} and need data: {}'.format(self, need_data))
+        logger.info('Write miss for cache: {} and need data: {}'.format(self, need_data))
         self.pending_address = address
         # note that the num_invalidates to expect will appear after we have recieved all
         # the acknowledged invalidations
@@ -97,7 +98,7 @@ class Cache():
             tag  (int): The value of the tag
             address (int): Address of the word 
         """
-        logger.debug('Read hit for cache: {}'.format(self))
+        logger.info('Read hit for cache: {}'.format(self))
         line.write(tag)
 
         Statistic.private_access()
@@ -113,7 +114,7 @@ class Cache():
         Returns:
             hit (bool): True if there is a cache hit, else false
         """
-        logger.debug('cache {} reading address: {}'.format(self, address))
+        logger.info('cache {} reading address: {}'.format(self, address))
         tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
         line = self.cachelines[index]
 
@@ -128,6 +129,7 @@ class Cache():
         else:
             # block not in cache so get block from directory
             if (line.state == MSI.MODIFIED):
+                logger.info(f"Line w/ address {address} is in state Modified but tags don't match so creating replacement writeback")
                 # check if it was modified state
                 Statistic.replacement_writeback()
             self._read_miss(line, tag, address)
@@ -141,7 +143,7 @@ class Cache():
             tag  (int): The value of the tag
             address (int): Address of the word 
         """
-        logger.debug('Read miss for cache: {}'.format(self))
+        logger.info('Read miss for cache: {}'.format(self))
         Statistic.directory_request()
         self.directory.read_miss(self, address)
         # set cache state
@@ -157,7 +159,7 @@ class Cache():
             tag  (int): The value of the tag
             address (int): Address of the word 
         """
-        logger.debug('Read hit for cache: {}'.format(self))
+        logger.info('Read hit for cache: {}'.format(self))
         Statistic.cache_access()
         Statistic.private_access()
         return
@@ -172,14 +174,14 @@ class Cache():
         Args:
             address (int): Address of the word
         """
-        logger.debug('Cache {} issued remote read miss with address: {}'.format(self, address))
+        logger.info('Remote read miss issued for cache {} with address: {}'.format(self, address))
         tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
         line = self.cachelines[index]
 
         # check if the line is actuall valid
         if (tag == line.tag and line.valid == True):
             if (line.state == MSI.MODIFIED):
-                logger.debug('changing line {} to state SHARED'.format(line))
+                logger.info('Changing line {} to state SHARED, since it was in modified'.format(line))
                 line.state = MSI.SHARED
                 Statistic.coherence_writeback()
 
@@ -191,14 +193,9 @@ class Cache():
             cache (Cache): Cache to send data to
             address (int): Address of the word
         """
-        logger.debug('Cache {} sending line {} to cache {}'.format(self, address, cache))
+        logger.info('Cache {} sending line with address {} to cache {}'.format(self, address, cache))
         tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
         line = self.cachelines[index]
-        # check state and tag hit, we dont actually probe
-        # since these are overlapped and let directory deal with this
-            # Statistic.cache_probe()
-        # access data to send to cache
-        # Statistic.cache_access()
         return
 
     # -- Invalidations -- #
@@ -209,15 +206,15 @@ class Cache():
             address (int): Address of the word
             cache (Cache): The cache that asked for invalidation
         """
-        logger.debug('Cache {} is invalidating line with address: {} asked from cache: {}'.format(self, address, cache))
+        logger.info('Cache {} is invalidating line with address: {} asked from cache: {}'.format(self, address, cache))
         tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
         line = self.cachelines[index]
         # check if the line is actuall valid
-        if (tag == line.tag and line.valid == True):
-            if (line.state == MSI.MODIFIED):
-                logger.debug('changing line {} to state Invalid'.format(line))
+        # if (tag == line.tag and line.valid == True):
+        #     if (line.state == MSI.MODIFIED):
+                # logger.debug('line w/ address {} is in modified so creating coherence writeback'.format(address))
                 # line.state = MSI.SHARED
-                Statistic.coherence_writeback()
+                # Statistic.coherence_writeback()
 
         line.invalidate()
         cache.confirm_invalidation(address)

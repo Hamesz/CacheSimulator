@@ -32,7 +32,7 @@ class Directory():
         # has a copt of the data
         if (len(cache_containers) != 0):
             cache_closest = self._get_closest_cache(cache_containers, cache)
-            logger.debug('closest cache to {} is {}'.format(cache, cache_closest))
+            logger.info('closest cache to {} is {}'.format(cache, cache_closest))
             # ask the closest cache to send the data to issuing cache 
             cache_closest.send_line(cache, address)
             Statistic.directory_request()   # ask to send line
@@ -44,7 +44,7 @@ class Directory():
             Statistic.remote_access()
         else:
             # there is no cache that holds the data, we need to query memory and send it personally
-            logger.debug('No cache has line {}, so fetching it from memory'.format(address))
+            logger.info('No cache has line {}, so fetching it from memory'.format(address))
             Statistic.memory_access()
 
             logger.debug("Sending line to cache: {}".format(cache))
@@ -71,10 +71,11 @@ class Directory():
         # get caches which contain the address
         cache_containers = self._get_sharers(cache, address)
         if (len(cache_containers) > 0):
-            logger.debug('Sending invalidations to sharers: {}'.format(cache_containers))
+            logger.info('Sending invalidations to sharers: {}'.format(cache_containers))
             # send ivalidations to them all (remote write miss)
-            self._send_invalidations(cache, cache_containers, address)
             Statistic.directory_request()
+            self._send_invalidations(cache, cache_containers, address)
+            
 
             if (need_data):
                 closest_cache = self._get_closest_cache(cache_containers, cache)
@@ -98,7 +99,7 @@ class Directory():
             return len(cache_containers)
         # No sharers
         else:
-            logger.debug('No sharers so getting data from memory')
+            logger.info('No sharers so getting data from memory')
             # need to get from main memory and send to cache
             if (need_data):
                 Statistic.memory_access()
@@ -132,7 +133,7 @@ class Directory():
             caches (list(Cache)): Caches which need to be invalidated
             address (int): Address of the word
         """
-        logger.debug('Sending invalidations to caches: {} for address {}'.format(caches, address))
+        logger.info('Sending invalidations to caches: {} for address {}'.format(caches, address))
         for c in caches:
             c.invalidate_line(address, cache)
 
