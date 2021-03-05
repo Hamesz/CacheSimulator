@@ -193,9 +193,14 @@ class Directory():
         logger.debug('Finding closest cache with caches: {}, to closest cache: {}'.format(caches, cache))
         distances = []
         for c in caches:
-            distance = ((cache.id - c.id)) % (NUMBER_OF_CACHES)
-            logger.debug('Distance between cache {} & {}: {}'.format(cache, c, distance))
-            distances.append(distance)
+            if (Optimizer.OPTIMIZE):
+                distance = ((c.id - cache.id)) % (NUMBER_OF_CACHES)
+                logger.debug('Distance between cache {} & {}: {}'.format(cache, c, distance))
+                distances.append(distance)
+            else:
+                distance = ((cache.id - c.id)) % (NUMBER_OF_CACHES)
+                logger.debug('Distance between cache {} & {}: {}'.format(cache, c, distance))
+                distances.append(distance)
         
         min_distance = min(distances)
         min_index = distances.index(min_distance)
@@ -216,9 +221,14 @@ class Directory():
         distances = []
         # getting furthest cache to send invalidation too
         for c in caches:
-            distance = ((cache.id - c.id)) % (NUMBER_OF_CACHES)
-            logger.debug('Distance between cache {} & {}: {}'.format(cache, c, distance))
-            distances.append(distance)
+            if (Optimizer.OPTIMIZE):
+                distance = ((c.id - cache.id)) % (NUMBER_OF_CACHES)
+                logger.debug('Distance between cache {} & {}: {}'.format(cache, c, distance))
+                distances.append(distance)
+            else:
+                distance = ((cache.id - c.id)) % (NUMBER_OF_CACHES)
+                logger.debug('Distance between cache {} & {}: {}'.format(cache, c, distance))
+                distances.append(distance)
         
         max_distance = max(distances)
         max_index = distances.index(max_distance)

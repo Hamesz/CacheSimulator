@@ -6,8 +6,8 @@ Total-accesses: 196608
 Replacement-writebacks: 6306
 Coherence-writebacks: 51
 Invalidations-sent: 51
-Average-latency: 3.213104248046875
+Average-latency: 3.217681884765625
 Priv-average-latency: 2.0
-Rem-average-latency: 18.66
+Rem-average-latency: 24.66
 Off-chip-average-latency: 29.0
-Total-latency: 631722
+Total-latency: 632622
