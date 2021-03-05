@@ -3,11 +3,13 @@ from cachesimulator.config import NUMBER_OF_CACHES
 from cachesimulator.directory import Directory
 from cachesimulator.cache import Cache
 from cachesimulator.statistics import Statistic, save_statistics
+from cachesimulator.optimizer import Optimizer
 import logging
 logger = logging.getLogger('cachesimulator.Logger')
 logger.setLevel(logging.WARNING)
 
-def main(trace_file):
+
+def main(trace_file, optimize=False):
     # get the parsed text
     parsed_text = parse(trace_file)
     # create the directory
@@ -18,6 +20,9 @@ def main(trace_file):
     for c in caches:
         directory.append_sharer(c)
     
+    # set the optimizer
+    Optimizer.OPTIMIZE = optimize
+
     # run the main code
     for entry in parsed_text:
         cache_id, command, address = entry
@@ -58,11 +63,14 @@ def main(trace_file):
 
 
 if __name__ == '__main__':
+    # global OPTIMIZE
+    optimize = False
+
     trace1 = r'C:\Users\James H\git\CacheSimulator\data\trace1.txt'
-    main(trace1)
+    main(trace1, optimize)
     trace2 = r'C:\Users\James H\git\CacheSimulator\data\trace2.txt'
     
     print()
     
     Statistic.reset()
-    main(trace2)
+    main(trace2, optimize)

@@ -1,6 +1,7 @@
 import logging
 from cachesimulator.config import NUMBER_OF_CACHES
 from cachesimulator.statistics import Statistic
+from cachesimulator.optimizer import Optimizer
 logger = logging.getLogger('cachesimulator.Logger')
 
 class Directory():
@@ -12,7 +13,7 @@ class Directory():
     def append_sharer(self, sharer):
         self.sharers.append(sharer)
 
-    def read_miss(self, cache, address):
+    def read_miss(self, cache, address, stored_address):
         """A read miss has occured from a cache, meaning it wants some data
             but either its line is invalid or tags dont match. Hence we need to 
             give it the data or tell another cache to give it
@@ -25,6 +26,10 @@ class Directory():
             int: number of sharers
         """
         logger.debug('Directory read miss')
+
+        # lets do optimization where we check for sharers of the old addrress
+        self._optimize_check(stored_address, cache)
+
         # Need to check if any other caches contain the data by asking them,
         # we should really keep a track of all the cachelines but takes up more storage
         cache_containers = self._get_sharers(cache, address)
@@ -55,10 +60,10 @@ class Directory():
             Statistic.directory_request()
 
             Statistic.off_chip_access()
-            
+
         return len(cache_containers)
 
-    def write_miss(self, cache, address, need_data=False):
+    def write_miss(self, cache, address, need_data, stored_address):
         """A write missed has occured from a cache which means it wants to write
             but it first needs to make sure everyone else is invalidated and it also needs
             the data to write.
@@ -66,6 +71,9 @@ class Directory():
         Args:
             cache (Cache): The cache issuing the read miss
             address (int): Address of the word
+            need_data (bool): Does the 
+            stored_address (int): The address that is stored in the cache currently but is about to be overwritten
+                it is none if the tags match.
         
         Returns:
             int : Number of invalidations to expect 
@@ -74,6 +82,9 @@ class Directory():
 
         if (need_data):
             Statistic.write_miss_data_needed()
+
+        # lets do optimization where we check for sharers of the old addrress
+        self._optimize_check(stored_address, cache)
 
         # get caches which contain the address
         cache_containers = self._get_sharers(cache, address)
@@ -146,7 +157,7 @@ class Directory():
         for c in caches:
             c.invalidate_line(address, cache)
 
-    def _get_sharers(self, cache, address):
+    def _get_sharers(self, cache, address, no_latency=False):
         """Gets the caches which contain a valid copy of the address. Performs a directory access
 
         Args:
@@ -164,7 +175,8 @@ class Directory():
                 # if this cache contains the address then add it to containers
                 if (contains):
                     cache_containers.append(c)
-        Statistic.directory_access()
+        if (no_latency == False):
+            Statistic.directory_access()
         return cache_containers
 
     def _get_closest_cache(self, caches, cache):
@@ -212,6 +224,23 @@ class Directory():
         max_index = distances.index(max_distance)
         furthest_cache = caches[max_index]
         return max_distance
+
+    def _optimize_check(self, stored_address, cache):
+        """Checks if we have to process the optimization
+
+        Args:
+            stored_address (int): Address that is being kicked out of the cache
+            cache (Cache): cache who had a tag miss
+        """
+        if ( (stored_address != None) and Optimizer.OPTIMIZE):    # check it does not equal None
+            logger.info(f"Cache {cache} has invalidated address: {stored_address}, checking for sharers")
+            cache_containers_for_stored_address = self._get_sharers(cache, stored_address, no_latency=True)
+            if (len(cache_containers_for_stored_address) == 1):
+                last_sharer = cache_containers_for_stored_address[0] 
+                logger.info(f"Alerting cache {last_sharer} that it is last sharer for address {stored_address}")
+                last_sharer.alert_last_sharer(stored_address, cache)
+        else:
+            logger.debug(f"Stored address not set")
 
     @property
     def sharers(self):

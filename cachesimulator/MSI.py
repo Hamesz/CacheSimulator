@@ -3,5 +3,5 @@ INVALID = 0
 MODIFIED = 1
 SHARED = 2
 # extra
-EXLUSIVE = 3
+EXCLUSIVE = 3
 

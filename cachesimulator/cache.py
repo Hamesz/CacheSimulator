@@ -61,6 +61,10 @@ class Cache():
                 logger.debug('Line is in MODIFIED state')
                 self._write_hit(line, tag, address)
                 return True
+            elif(Optimizer.OPTIMIZE and line.state==MSI.EXCLUSIVE):
+                logger.debug('Line is in Exlusive state, so skipping directory and writing to modified')
+                self._write_hit(line, tag, address)
+                return True
         else:
             # block not in cache so get block from directory,
             if (line.valid == False):
@@ -72,24 +76,31 @@ class Cache():
             if (line.state == MSI.MODIFIED):
                 logger.info(f"Line w/ address {address} is in state Modified but tags don't match so creating replacement writeback")
                 Statistic.replacement_writeback()
-            self._write_miss(line, tag, address, True)
+            
+            if (line.valid):
+                stored_address = get_stored_address(line.tag, index, self._INDEX_BITS, self._OFFSET_BITS)
+            else:
+                stored_address = None
+            self._write_miss(line, tag, address, True, stored_address=stored_address)
             return False
 
-    def _write_miss(self, line, tag, address, need_data):
+    def _write_miss(self, line, tag, address, need_data, stored_address=None):
         """This is when a write happens but the state of the line is Invalid
 
         Args:
             line (Line): The cacheline
             tag  (int): The value of the tag
-            address (int): Address of the word 
+            address (int): Address of the new word 
             need_data (bool): Flag that determines whether the cache needs the data
+            stored_address (int): The address that is stored in the cache currently but is about to be overwritten
+                it is none if the tags match.
         """
-        logger.info('Write miss for cache: {} and need data: {}'.format(self, need_data))
+        logger.info('Write miss for cache: {} and need data: {} and stored address: {}'.format(self, need_data, stored_address))
         self.pending_address = address
         # note that the num_invalidates to expect will appear after we have recieved all
         # the acknowledged invalidations
         Statistic.directory_request()
-        num_invalidates = self.directory.write_miss(self, address, need_data)
+        num_invalidates = self.directory.write_miss(self, address, need_data, stored_address)
         logger.debug(f"Cache {self} expecting {num_invalidates} invalidations")
         Statistic.cache_probe()
         line.write(tag)
@@ -105,7 +116,6 @@ class Cache():
         """
         logger.info('Read hit for cache: {}'.format(self))
         line.write(tag)
-
         Statistic.private_access()
 
     # -- Reads -- #
@@ -133,6 +143,7 @@ class Cache():
                 self._read_hit(line, tag, address)
                 return True
         else:
+            logger.debug(f"Tag mismatch, tag in cache: {line.tag} vs tag for given addres:{tag}")
             # it is either compulsory or conflict
             if (line.valid == False):
                 Statistic.compulsory_miss()
@@ -144,23 +155,36 @@ class Cache():
                 logger.info(f"Line w/ address {address} is in state Modified but tags don't match so creating replacement writeback")
                 # check if it was modified state
                 Statistic.replacement_writeback()
-            num_sharers = self._read_miss(line, tag, address)
+            
+            # for optimization
+            if line.valid:
+                stored_address = get_stored_address(line.tag, index, self._INDEX_BITS, self._OFFSET_BITS)
+            else:
+                stored_address = None
+            self._read_miss(line, tag, address, stored_address=stored_address)
             return False
 
-    def _read_miss(self, line, tag, address):
-        """This is when a read happens but the state of the line is Invalid
+    def _read_miss(self, line, tag, address, stored_address=None):
+        """This is when a read happens when there is a read miss eithee because the
+            state is invalid or tag miss
 
         Args:
             line (Line): The cacheline
             tag  (int): The value of the tag
             address (int): Address of the word 
         """
-        logger.info('Read miss for cache: {}'.format(self))
+        logger.info('Read miss for cache: {}, with stored address: {}'.format(self,stored_address))
         Statistic.directory_request()
-        self.directory.read_miss(self, address)
+        num_sharers = self.directory.read_miss(self, address, stored_address)
         # set cache state
-        line.set_state(MSI.SHARED)
-        line.read(tag)
+        if (Optimizer.OPTIMIZE and num_sharers==0):
+            logger.info(f"Cache {self} setting address {address} to state exclusive")
+            line.read(tag) # auto sets it to shared
+            line.set_state(MSI.EXCLUSIVE)
+        else:
+            logger.info(f"Cache {self} setting address {address} to state shared")
+            line.set_state(MSI.SHARED) # provides a cache probe
+            line.read(tag)  
         
 
     def _read_hit(self, line, tag, address):
@@ -172,6 +196,7 @@ class Cache():
             address (int): Address of the word 
         """
         logger.info('Read hit for cache: {}'.format(self))
+        # We never change state when we read, even when optimization is enabled
         Statistic.cache_access()
         Statistic.private_access()
         return
@@ -196,6 +221,9 @@ class Cache():
                 logger.info('Changing line {} to state SHARED, since it was in modified'.format(line))
                 line.state = MSI.SHARED
                 Statistic.coherence_writeback()
+            elif(line.state == MSI.EXCLUSIVE and Optimizer.OPTIMIZE):
+                logger.info('Changing line {} to state SHARED, since it was in exlusive'.format(line))
+                line.state = MSI.SHARED
 
     def send_line(self, cache, address):
         """Sends the data of the line to the desired cache. We don't actaully
@@ -210,19 +238,23 @@ class Cache():
         line = self.cachelines[index]
         return
 
-    def alert_last_sharer(self, address):
+    def alert_last_sharer(self, address, cache):
         """This method is called when this cache is the last sharer for an address
 
         Args:
             int: Address of the word
+            Cache: cache that has just been removed as a sharer
         """
         # check if optimization is on
         if (Optimizer.OPTIMIZE):
-            logger.info('Cache {} sending line with address {} to cache {}'.format(self, address, cache))
+            logger.info(f'Directory informing cache {self} that it is last sharer for address: {address} because other sharer cache: {cache} invalidated'.format(self, address, cache))
             tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
             line = self.cachelines[index]
-            # change state to exlusive since it is last sharer
-            line.state = MSI.EXLUSIVE
+            if (line.tag == tag and line.valid==True):
+                logger.debug(f'cache {self} changing address {address} to state exclusive')
+                # change state to exlusive since it is last sharer but dont probe as this will overlap
+                line.state = MSI.EXCLUSIVE
+                # send acknowledgment to directory but this overlaps
 
     # -- Invalidations -- #
     def invalidate_line(self, address, cache):
@@ -241,7 +273,6 @@ class Cache():
                 # logger.debug('line w/ address {} is in modified so creating coherence writeback'.format(address))
                 # line.state = MSI.SHARED
                 # Statistic.coherence_writeback()
-
             line.invalidate()
             cache.confirm_invalidation(address)
 
@@ -318,3 +349,22 @@ def get_address_parameters(address, INDEX_BITS, OFFSET_BITS):
     offset = address & (np.power(2, OFFSET_BITS) - 1)
 
     return tag, index, offset
+
+
+def get_stored_address(tag, index, INDEX_BITS, OFFSET_BITS):
+    """Creates the stored address with 0 offset and returns it
+
+    Args:
+        tag (int): The tag of the stored address
+        index (int): The index of the stored address
+        INDEX_BITS (int): The number of index bits
+        OFFSET_BITS (int): The number of offset bits
+
+    Returns:
+        int : The address but with offset 0
+    """
+    logger.debug(f'Getting stored address with Tag: {tag}, index: {index}')
+    tag = tag << (INDEX_BITS + OFFSET_BITS)
+    index = index << OFFSET_BITS
+    logger.debug(f'new tag: {tag}, new index: {index}')
+    return tag | index | 0
