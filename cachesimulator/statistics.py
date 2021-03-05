@@ -19,6 +19,25 @@ class Statistic:
     # number of instructions issued
     INSTRUCTIONS = 0
 
+    # Extra statistics
+    # miss because data is from start of program
+    COMPULSORY_MISSES = 0   
+    # miss when the data required was in the cache previously, but got evicted.
+    CONFLICT_MISSES = 0     
+    # miss occurs due to the limited size of a cache and not the cache's mapping function
+    CAPACITY_MISSES = 0
+    # miss because another cache invalidated the line     
+    COHERENCE_MISSES = 0 
+
+    # Line is in S, and cache wants to write so alerts the directory but there are no sharers 
+    WRITE_MISS_BUT_NO_DATA_NEEDED_AND_NO_SHARERS = 0
+    # line in I, and cache wants to write so alerts directory
+    WRITE_MISS_BUT_DATA_NEEDED = 0
+
+    THREE_HOPS = 0
+    TWO_HOPS = 0
+    ONE_HOPS = 0
+
     # latency statstics
     CACHE_PROBES = 0 
     CACHE_PROBES_PREV = CACHE_PROBES
@@ -88,12 +107,56 @@ class Statistic:
         self.OFF_CHIP_ACCESS_PREV = self.OFF_CHIP_ACCESS
 
 
+    # -- Misses -- #
+    @classmethod
+    def compulsory_miss(self):
+        logger.debug("-Compulsory miss-")
+        self.COMPULSORY_MISSES += 1
+
+    @classmethod
+    def conflic_miss(self):
+        logger.debug("-Conflict miss-")
+        self.CONFLICT_MISSES += 1
+
+    @classmethod
+    def capacity_miss(self):
+        logger.debug("-Capacity miss-")
+        self.CAPACITY_MISSES += 1
+
+    @classmethod
+    def coherence_miss(self):
+        logger.debug("-Coherence miss-")
+        self.COHERENCE_MISSES += 1
+    
+    @classmethod
+    def three_hops(self):
+        self.THREE_HOPS += 1
+
+    @classmethod
+    def two_hops(self):
+        self.TWO_HOPS += 1
+
+    @classmethod
+    def one_hops(self):
+        self.ONE_HOPS += 1
+
     # latency requests
     @classmethod
     def cache_probe(self):
         logger.info('-Cache probe-')
         self.CACHE_PROBES += 1
 
+    @classmethod
+    def write_miss_no_sharers(self):
+        logger.debug('-Write miss no need data and no sharers-')
+        self.WRITE_MISS_BUT_NO_DATA_NEEDED_AND_NO_SHARERS += 1
+
+    @classmethod
+    def write_miss_data_needed(self):
+        self.WRITE_MISS_BUT_DATA_NEEDED += 1
+    # ------------------------------
+
+    # -- Latency Actions -- #
     @classmethod
     def cache_access(self):
         logger.info('-Cache access-')
@@ -114,6 +177,13 @@ class Statistic:
         logger.info('-{} Proccessor hops-'.format(hops))
         self.PROCESSOR_HOPS += hops
 
+        if (hops == 3):
+            self.three_hops()
+        elif (hops == 2):
+            self.two_hops()
+        else:
+            self.one_hops()
+
     @classmethod
     def directory_request(self):
         logger.info('-Directory Request-')
@@ -124,7 +194,9 @@ class Statistic:
         logger.info('-Memory Access-')
         self.MEMORY_ACCESSES += 1
 
-    # statistics
+    #-----------------------------------------
+
+    # -- Key statistics -- #
     @classmethod
     def private_access(self):
         logger.info('-Private Access-')
@@ -154,10 +226,24 @@ class Statistic:
     def invalidation_sent(self, num):
         logger.info(f'-{num} Invalidations Sent-')
         self.INVALIDATIONS_SENT += num
+    # --------------------------------------------
 
+    
     @classmethod
     def reset(self):
         self.INSTRUCTIONS = 0
+
+        self.COMPULSORY_MISSES = 0   
+        self.CONFLICT_MISSES = 0     
+        self.CAPACITY_MISSES = 0 
+        self.COHERENCE_MISSES = 0 
+
+        self.WRITE_MISS_BUT_NO_DATA_NEEDED_AND_NO_SHARERS = 0
+        self.WRITE_MISS_BUT_DATA_NEEDED = 0
+
+        self.THREE_HOPS = 0
+        self.TWO_HOPS = 0
+        self.ONE_HOPS = 0
 
         self.CACHE_PROBES = 0         
         self.CACHE_PROBES_PREV = self.CACHE_PROBES
@@ -193,7 +279,8 @@ class Statistic:
         self.OFF_CHIP_LATENCIES = []
         self.TOTAL_LATENCY = 0 
         self.TOTAL_LATENCY_PREV = self.TOTAL_LATENCY
-
+    
+    # -- Latency Methods -- #
     @classmethod
     def compute_current_latency(self):
         """Computes the current latency taken by looking
@@ -233,7 +320,6 @@ class Statistic:
         else:
             return 0
 
-
     @classmethod
     def off_chip_latency(self):
         if (len(self.OFF_CHIP_LATENCIES) != 0):
@@ -241,24 +327,39 @@ class Statistic:
         else:
             return 0
 
+    # ---------------------------------
+
+
+    # -- Printing Info -- #
     @classmethod
     def debug_statistics(self):
         string = f"""
-        Total Cache accesses: {self.CACHE_ACCESSES}
-            Instruction cache accesses: {self.CACHE_ACCESSES - self.CACHE_ACCESSES_PREV}
-        Total Cache probes: {self.CACHE_PROBES}
-            Instruction cache probes: {self.CACHE_PROBES - self.CACHE_PROBES_PREV}
-        Total SRAM Accesses: {self.SRAM_ACCESSES}
-            Instruction SRAM accesses: {self.SRAM_ACCESSES - self.SRAM_ACCESSES_PREV}
-        Total Processor Hops: {self.PROCESSOR_HOPS}
-            Instruction processor hops: {self.PROCESSOR_HOPS - self.PROCESSOR_HOPS_PREV}
-        Total Directory Accesses: {self.DIRECTORY_ACCESSES}
-            Instruction directory Accesses: {self.DIRECTORY_ACCESSES - self.DIRECTORY_ACCESSES_PREV}
-        Total Directory Requests/Hops: {self.DIRECTORY_HOPS}
-            Instruction directory requests/hops: {self.DIRECTORY_HOPS - self.DIRECTORY_HOPS_PREV}
-        Total Memory Accesses: {self.MEMORY_ACCESSES}
-            Instruction memory accesses: {self.MEMORY_ACCESSES - self.MEMORY_ACCESSES_PREV}
-        Instruction Latency: {self.compute_current_latency()}
+Total Cache accesses: {self.CACHE_ACCESSES}
+    Instruction cache accesses: {self.CACHE_ACCESSES - self.CACHE_ACCESSES_PREV}
+Total Cache probes: {self.CACHE_PROBES}
+    Instruction cache probes: {self.CACHE_PROBES - self.CACHE_PROBES_PREV}
+Total SRAM Accesses: {self.SRAM_ACCESSES}
+    Instruction SRAM accesses: {self.SRAM_ACCESSES - self.SRAM_ACCESSES_PREV}
+Total Processor Hops: {self.PROCESSOR_HOPS}
+    Instruction processor hops: {self.PROCESSOR_HOPS - self.PROCESSOR_HOPS_PREV}
+Total Directory Accesses: {self.DIRECTORY_ACCESSES}
+    Instruction directory Accesses: {self.DIRECTORY_ACCESSES - self.DIRECTORY_ACCESSES_PREV}
+Total Directory Requests/Hops: {self.DIRECTORY_HOPS}
+    Instruction directory requests/hops: {self.DIRECTORY_HOPS - self.DIRECTORY_HOPS_PREV}
+Total Memory Accesses: {self.MEMORY_ACCESSES}
+    Instruction memory accesses: {self.MEMORY_ACCESSES - self.MEMORY_ACCESSES_PREV}
+Instruction Latency: {self.compute_current_latency()}
+
+Compulsory misses:  {self.COMPULSORY_MISSES}
+Conflict misses:    {self.CONFLICT_MISSES}
+Capacity misses:    {self.CAPACITY_MISSES}
+Coherence misses:   {self.COHERENCE_MISSES}
+Write miss, don't need data, with no sharers: {self.WRITE_MISS_BUT_NO_DATA_NEEDED_AND_NO_SHARERS}
+write miss and data is needed: {self.WRITE_MISS_BUT_DATA_NEEDED}
+
+Three hops: {self.THREE_HOPS}
+Two hops: {self.TWO_HOPS}
+One hops: {self.ONE_HOPS}
         """
         return string
 
@@ -291,6 +392,8 @@ Total-latency: {self.total_latency()}"""
             return self.PRIVATE_ACCESSES/self.INSTRUCTIONS
         else:
             return 0
+
+    # -------------------------------
 
 def save_statistics(file_path):
     """Saves the key statstics in the given path with

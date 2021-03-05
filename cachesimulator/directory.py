@@ -68,6 +68,9 @@ class Directory():
         """
         logger.debug(f'Directory write miss, is data needed: {need_data}')
 
+        if (need_data):
+            Statistic.write_miss_data_needed()
+
         # get caches which contain the address
         cache_containers = self._get_sharers(cache, address)
         if (len(cache_containers) > 0):
@@ -99,7 +102,7 @@ class Directory():
             return len(cache_containers)
         # No sharers
         else:
-            logger.info('No sharers so getting data from memory')
+            logger.info('No sharers')
             # need to get from main memory and send to cache
             if (need_data):
                 Statistic.memory_access()
@@ -107,6 +110,8 @@ class Directory():
                 
             else:
                 # the cache does not need data just telling us to send invalidations
+                logger.info("Getting data from memory")
+                Statistic.write_miss_no_sharers()
                 Statistic.remote_access()
                 pass
             # directory sends data to cache

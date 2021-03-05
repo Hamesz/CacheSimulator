@@ -53,6 +53,7 @@ class Cache():
                 return False
             elif(line.state == MSI.INVALID):
                 logger.debug('Line is in INVALID state')
+                Statistic.coherence_miss()
                 self._write_miss(line, tag, address, True)
                 return False
             elif(line.state == MSI.MODIFIED):
@@ -61,6 +62,9 @@ class Cache():
                 return True
         else:
             # block not in cache so get block from directory,
+            if (line.valid == False):
+                Statistic.compulsory_miss()
+
             # Now we can skip this section and cheat a bit but we will do it anyway
             logger.debug('Line tag: {} vs addres tag: {}'.format(line.tag, tag))
             logger.debug('Line validity: {}'.format(line.valid))
@@ -121,12 +125,19 @@ class Cache():
         Statistic.cache_probe()
         if (tag == line.tag and line.valid==True):
             if (line.state == MSI.INVALID):
+                Statistic.coherence_miss()
                 self._read_miss(line, tag, address)
                 return False
             else:
                 self._read_hit(line, tag, address)
                 return True
         else:
+            # it is either compulsory or conflict
+            if (line.valid == False):
+                Statistic.compulsory_miss()
+            else:
+                Statistic.conflic_miss()
+                
             # block not in cache so get block from directory
             if (line.state == MSI.MODIFIED):
                 logger.info(f"Line w/ address {address} is in state Modified but tags don't match so creating replacement writeback")

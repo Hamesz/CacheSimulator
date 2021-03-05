@@ -52,6 +52,7 @@ def main(trace_file):
         elif(command == 'p'):
             print('Print out cache content')
     print(Statistic.key_statistics())
+    print(Statistic.debug_statistics())
     # save statistics to file
     save_statistics(trace_file)
 
@@ -60,4 +61,8 @@ if __name__ == '__main__':
     trace1 = r'C:\Users\James H\git\CacheSimulator\data\trace1.txt'
     main(trace1)
     trace2 = r'C:\Users\James H\git\CacheSimulator\data\trace2.txt'
+    
+    print()
+    
+    Statistic.reset()
     main(trace2)
