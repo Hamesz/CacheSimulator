@@ -3,6 +3,7 @@ from cachesimulator.config import CACHE_SIZE, LINE_SIZE
 from cachesimulator import MSI
 from cachesimulator.statistics import Statistic
 import numpy as np
+from cachesimulator.optimizer import Optimizer
 
 import cachesimulator.Logger
 import logging
@@ -143,7 +144,7 @@ class Cache():
                 logger.info(f"Line w/ address {address} is in state Modified but tags don't match so creating replacement writeback")
                 # check if it was modified state
                 Statistic.replacement_writeback()
-            self._read_miss(line, tag, address)
+            num_sharers = self._read_miss(line, tag, address)
             return False
 
     def _read_miss(self, line, tag, address):
@@ -208,6 +209,20 @@ class Cache():
         tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
         line = self.cachelines[index]
         return
+
+    def alert_last_sharer(self, address):
+        """This method is called when this cache is the last sharer for an address
+
+        Args:
+            int: Address of the word
+        """
+        # check if optimization is on
+        if (Optimizer.OPTIMIZE):
+            logger.info('Cache {} sending line with address {} to cache {}'.format(self, address, cache))
+            tag, index, offset = get_address_parameters(address, self._INDEX_BITS, self._OFFSET_BITS)
+            line = self.cachelines[index]
+            # change state to exlusive since it is last sharer
+            line.state = MSI.EXLUSIVE
 
     # -- Invalidations -- #
     def invalidate_line(self, address, cache):

@@ -20,6 +20,9 @@ class Directory():
         Args:
             cache (Cache): The cache issuing the read miss
             address (int): Address of the word
+
+        Returns:
+            int: number of sharers
         """
         logger.debug('Directory read miss')
         # Need to check if any other caches contain the data by asking them,
@@ -52,7 +55,8 @@ class Directory():
             Statistic.directory_request()
 
             Statistic.off_chip_access()
-            pass
+            
+        return len(cache_containers)
 
     def write_miss(self, cache, address, need_data=False):
         """A write missed has occured from a cache which means it wants to write

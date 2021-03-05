@@ -4,7 +4,7 @@ import numpy as np
 import logging
 from cachesimulator.statistics import Statistic
 logger = logging.getLogger("cachesimulator.Logger")
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.WARNING)
 
 class TestTrace(unittest.TestCase):
 
@@ -116,3 +116,111 @@ class TestTrace(unittest.TestCase):
         self.assertEqual(expected_total_average_latency, actual_total_average_latency)
 
         return
+
+    def test_trace1(self):
+        """This tests trace1
+        """
+        logger.info('test_trace1')
+        file = r'C:\Users\James H\git\CacheSimulator\data\trace1.txt'
+        main(file)
+
+        # -- Expected -- #
+        # accesses
+        expected_private_accesses = 179440
+        expected_remote_accesses = 8427
+        expected_off_chip_accesses = 8741
+        expected_total_accesses = 196608
+        expected_r_writebacks = 6357
+        expected_c_writebacks = 51
+        expected_invalidations_sent = 51
+        # latencies
+        expected_priv_average_latency = 2
+        expected_rem_average_latency = 14.08
+        expected_off_chip_average_latency = 29
+        expected_total_latency = 731046
+        expected_total_average_latency = 3.72 #.2sf
+
+        # -- Actual -- #
+        actual_private_accesses = Statistic.PRIVATE_ACCESSES
+        actual_remote_accesses = Statistic.REMOTE_ACCESSES
+        actual_off_chip_accesses = Statistic.OFF_CHIP_ACCESS
+        actual_total_accesses = actual_private_accesses + actual_remote_accesses + actual_off_chip_accesses 
+        actual_r_writebacks = Statistic.REPLACEMENT_WRITEBACKS
+        actual_c_writebacks = Statistic.COHERENCE_WRITEBACKS
+        actual_invalidations_sent = Statistic.INVALIDATIONS_SENT
+        # latencies
+        actual_priv_average_latency = Statistic.priv_average_latency()
+        actual_rem_average_latency = np.round(Statistic.rem_average_latency(),2)
+        actual_off_chip_average_latency = Statistic.off_chip_latency()
+        actual_total_latency = Statistic.total_latency()
+        actual_total_average_latency = np.round(Statistic.average_latency(),2)
+
+        self.assertEqual(expected_private_accesses,     actual_private_accesses)
+        self.assertEqual(expected_remote_accesses,      actual_remote_accesses)
+        self.assertEqual(expected_off_chip_accesses,    actual_off_chip_accesses)
+        self.assertEqual(expected_total_accesses,       actual_total_accesses)
+        self.assertEqual(expected_r_writebacks,         actual_r_writebacks)
+        self.assertEqual(expected_c_writebacks,         actual_c_writebacks)
+        self.assertEqual(expected_invalidations_sent,   actual_invalidations_sent)
+        self.assertEqual(expected_priv_average_latency, actual_priv_average_latency)
+        self.assertEqual(expected_rem_average_latency,  actual_rem_average_latency)
+        self.assertEqual(expected_off_chip_average_latency, actual_off_chip_average_latency)
+        self.assertEqual(expected_total_latency,        actual_total_latency)
+        self.assertEqual(expected_total_average_latency, actual_total_average_latency)
+
+        return
+
+    def test_trace2(self):
+        """This tests trace file 2
+        """
+        logger.info('test_trace2')
+        file = r'C:\Users\James H\git\CacheSimulator\data\trace2.txt'
+        main(file)
+
+        # -- Expected -- #
+        # accesses
+        expected_private_accesses = 491511
+        expected_remote_accesses = 91537
+        expected_off_chip_accesses = 507
+        expected_total_accesses = 583555
+        expected_r_writebacks = 0
+        expected_c_writebacks = 39537
+        expected_invalidations_sent = 52559
+        # latencies
+        expected_priv_average_latency = 2
+        expected_rem_average_latency = 22.06
+        expected_off_chip_average_latency = 29
+        expected_total_latency = 3017176
+        expected_total_average_latency = 5.17 #.2sf
+
+        # -- Actual -- #
+        actual_private_accesses = Statistic.PRIVATE_ACCESSES
+        actual_remote_accesses = Statistic.REMOTE_ACCESSES
+        actual_off_chip_accesses = Statistic.OFF_CHIP_ACCESS
+        actual_total_accesses = actual_private_accesses + actual_remote_accesses + actual_off_chip_accesses 
+        actual_r_writebacks = Statistic.REPLACEMENT_WRITEBACKS
+        actual_c_writebacks = Statistic.COHERENCE_WRITEBACKS
+        actual_invalidations_sent = Statistic.INVALIDATIONS_SENT
+        # latencies
+        actual_priv_average_latency = Statistic.priv_average_latency()
+        actual_rem_average_latency = np.round(Statistic.rem_average_latency(),2)
+        actual_off_chip_average_latency = Statistic.off_chip_latency()
+        actual_total_latency = Statistic.total_latency()
+        actual_total_average_latency = np.round(Statistic.average_latency(),2)
+
+        self.assertEqual(expected_private_accesses,     actual_private_accesses)
+        self.assertEqual(expected_remote_accesses,      actual_remote_accesses)
+        self.assertEqual(expected_off_chip_accesses,    actual_off_chip_accesses)
+        self.assertEqual(expected_total_accesses,       actual_total_accesses)
+        self.assertEqual(expected_r_writebacks,         actual_r_writebacks)
+        self.assertEqual(expected_c_writebacks,         actual_c_writebacks)
+        self.assertEqual(expected_invalidations_sent,   actual_invalidations_sent)
+        self.assertEqual(expected_priv_average_latency, actual_priv_average_latency)
+        self.assertEqual(expected_rem_average_latency,  actual_rem_average_latency)
+        self.assertEqual(expected_off_chip_average_latency, actual_off_chip_average_latency)
+        self.assertEqual(expected_total_latency,        actual_total_latency)
+        self.assertEqual(expected_total_average_latency, actual_total_average_latency)
+
+        return
+
+    
