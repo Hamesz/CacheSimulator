@@ -10,13 +10,21 @@ from cachesimulator.statistics import Statistic, save_statistics
 from cachesimulator.optimizer import Optimizer
 import numpy as np
 logger = logging.getLogger("cachesimulator.Logger")
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.DEBUG)
 
 class TestOptimize(unittest.TestCase):
 
     def setUp(self):
         print('\n')
         Statistic.reset()
+
+    # def test_trace1(self):
+    #     file = r'C:\Users\James H\git\CacheSimulator\data\trace1.txt'
+    #     main(file, optimize=True)
+
+    # def test_trace2(self):
+    #     file = r'C:\Users\James H\git\CacheSimulator\data\trace2.txt'
+    #     main(file, optimize=True)
 
     def test_optimized_trace(self):
         file = r'C:\Users\James H\git\CacheSimulator\data\optimize_trace.txt'
@@ -35,7 +43,9 @@ class TestOptimize(unittest.TestCase):
         ten = [SHARED, SHARED, INVALID, INVALID]
         eleven = [INVALID, INVALID, INVALID, EXCLUSIVE]
         twelve = [SHARED, INVALID, INVALID, SHARED] # P1 should go to exclusive
-        expected_states = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve]
+        thirteen = [MODIFIED, INVALID, INVALID, INVALID]
+        fourteen = [MODIFIED, INVALID, INVALID, INVALID]
+        expected_states = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen]
         # test it line by line
         parsed_text = parse(file)
         # create the directory
@@ -59,11 +69,13 @@ class TestOptimize(unittest.TestCase):
             if (command == 'R'):
                 Statistic.add_instructions()
                 cache.read(address)
+                print(Statistic.debug_statistics())
                 Statistic.end_instruction()
 
             elif(command == 'W'):
                 Statistic.add_instructions()
                 cache.write(address)
+                print(Statistic.debug_statistics())
                 Statistic.end_instruction()
 
             # deal with other stuff
@@ -105,25 +117,24 @@ class TestOptimize(unittest.TestCase):
                 expected_state = EXCLUSIVE
                 msg = f"Special instruction {i+1}, therfore checking cache {c1} went to E state. It is in state: {actual_state} with tag: {line.tag}"
                 self.assertEquals(actual_state, expected_state, msg)
-            print(i+1)
             print(Statistic.key_statistics())
-            print(Statistic.debug_statistics())
+            print(i+1)
             # input()
 
         # accesses
         expected_private_accesses = 1
-        expected_remote_accesses = 6
+        expected_remote_accesses = 8
         expected_off_chip_accesses = 5
-        expected_total_accesses = 12
-        expected_r_writebacks = 0
+        expected_total_accesses = 14
+        expected_r_writebacks = 1
         expected_c_writebacks = 2
-        expected_invalidations_sent = 1
+        expected_invalidations_sent = 3
         # latencies
         expected_priv_average_latency = 2
-        expected_rem_average_latency = 22
+        expected_rem_average_latency = 21.88
         expected_off_chip_average_latency = 29
-        expected_total_latency = 279
-        expected_total_average_latency = 23.25 #.2sf
+        expected_total_latency = 322
+        expected_total_average_latency = 23 #.2sf
 
         # -- Actual -- #
         actual_private_accesses = Statistic.PRIVATE_ACCESSES
