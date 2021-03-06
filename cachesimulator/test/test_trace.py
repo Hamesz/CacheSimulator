@@ -3,6 +3,7 @@ import unittest
 import numpy as np
 import logging
 from cachesimulator.statistics import Statistic
+from data.trace_files import trace1, trace2, trace_addre_1, test_trace
 logger = logging.getLogger("cachesimulator.Logger")
 logger.setLevel(logging.WARNING)
 
@@ -14,7 +15,7 @@ class TestTrace(unittest.TestCase):
 
     def test_val2_trace(self):
         logger.info('test_trace_test_2')
-        file = r'C:\Users\James H\git\CacheSimulator\data\trace_addr_1.txt'
+        file = trace_addre_1
         main(file)
 
         # -- Expected -- #
@@ -65,7 +66,7 @@ class TestTrace(unittest.TestCase):
         """This tests the validation trace file
         """
         logger.info('test_trace_test_1')
-        file = r'C:\Users\James H\git\CacheSimulator\data\test_trace.txt'
+        file = test_trace
         main(file)
         # need to check the statistics object contains the correct info
         # expected_cache_probes = 2
@@ -121,7 +122,7 @@ class TestTrace(unittest.TestCase):
         """This tests trace1
         """
         logger.info('test_trace1')
-        file = r'C:\Users\James H\git\CacheSimulator\data\trace1.txt'
+        file = trace1
         main(file)
 
         # -- Expected -- #
@@ -174,7 +175,7 @@ class TestTrace(unittest.TestCase):
         """This tests trace file 2
         """
         logger.info('test_trace2')
-        file = r'C:\Users\James H\git\CacheSimulator\data\trace2.txt'
+        file = trace2
         main(file)
 
         # -- Expected -- #

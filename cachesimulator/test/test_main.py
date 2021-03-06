@@ -2,8 +2,9 @@ from main import main
 import unittest
 import logging
 from cachesimulator.statistics import Statistic
+from data.trace_files import B0
 logger = logging.getLogger("cachesimulator.Logger")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARNING)
 
 class TestMain(unittest.TestCase):
 
@@ -18,7 +19,7 @@ class TestMain(unittest.TestCase):
             No sharers
         """
         logger.info('test_B0')
-        file = r'C:\Users\James H\git\CacheSimulator\data\tests\b0.txt'
+        file = B0
         main(file)
 
         # expected requests

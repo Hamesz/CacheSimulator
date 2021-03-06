@@ -4,7 +4,7 @@ from cachesimulator.cache import Cache
 import logging
 
 logger = logging.getLogger('cachesimulator.Logger')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARNING)
 
 class TestGetAddress(unittest.TestCase):
 

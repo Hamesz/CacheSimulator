@@ -4,6 +4,8 @@ from cachesimulator.directory import Directory
 from cachesimulator.cache import Cache
 from cachesimulator.statistics import Statistic, save_statistics
 from cachesimulator.optimizer import Optimizer
+from data.trace_files import trace1, trace2, test_trace
+
 import logging
 logger = logging.getLogger('cachesimulator.Logger')
 logger.setLevel(logging.WARNING)
@@ -65,14 +67,13 @@ def main(trace_file, optimize=False):
     save_statistics(trace_file)
     
 
-
 if __name__ == '__main__':
     # global OPTIMIZE
     optimize = False
 
-    trace1 = r'C:\Users\James H\git\CacheSimulator\data\trace1.txt'
-    trace2 = r'C:\Users\James H\git\CacheSimulator\data\trace2.txt'
-    trace_test = r'C:\Users\James H\git\CacheSimulator\data\test_trace.txt'
+    # trace1 = r'C:\Users\James H\git\CacheSimulator\data\trace1.txt'
+    # trace2 = r'C:\Users\James H\git\CacheSimulator\data\trace2.txt'
+    # trace_test = r'C:\Users\James H\git\CacheSimulator\data\test_trace.txt'
 
     # Statistic.reset()
     # main(trace1, optimize)
@@ -81,4 +82,4 @@ if __name__ == '__main__':
     # main(trace2, optimize)
     print()
     # Statistic.reset()
-    main(trace_test, optimize)
+    main(test_trace, optimize)

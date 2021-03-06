@@ -2,11 +2,12 @@ import logging
 import unittest
 from cachesimulator.trace_parser import parse, read_text, modify_lines
 import cachesimulator.Logger
+from data.trace_files import trace_test_RW_no_sharers
 
 logger = logging.getLogger("cachesimulator.Logger")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARNING)
 
-trace_test_file = r'C:\Users\James H\git\CacheSimulator\data\trace_test_RW_no_sharers.txt'
+trace_test_file = trace_test_RW_no_sharers
 
 class TestParser(unittest.TestCase):
 

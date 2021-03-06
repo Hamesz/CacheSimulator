@@ -6,7 +6,7 @@ import logging
 from cachesimulator.test.setup import create_caches, create_directory
 
 logger = logging.getLogger('cachesimulator.Logger')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARNING)
 
 class TestCache(unittest.TestCase):
 

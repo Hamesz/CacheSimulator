@@ -8,6 +8,7 @@ from cachesimulator.config import NUMBER_OF_CACHES
 from cachesimulator.directory import Directory
 from cachesimulator.statistics import Statistic, save_statistics
 from cachesimulator.optimizer import Optimizer
+from data.trace_files import trace1, trace2, optimize_trace
 import numpy as np
 logger = logging.getLogger("cachesimulator.Logger")
 logger.setLevel(logging.WARNING)
@@ -19,15 +20,15 @@ class TestOptimize(unittest.TestCase):
         Statistic.reset()
 
     # def test_trace1(self):
-    #     file = r'C:\Users\James H\git\CacheSimulator\data\trace1.txt'
+    #     file = trace1
     #     main(file, optimize=True)
 
     # def test_trace2(self):
-    #     file = r'C:\Users\James H\git\CacheSimulator\data\trace2.txt'
+    #     file = trace2
     #     main(file, optimize=True)
 
     def test_optimized_trace(self):
-        file = r'C:\Users\James H\git\CacheSimulator\data\optimize_trace.txt'
+        file = optimize_trace
         # -- expected_states for address just processed -- #
         special_instructions = [4,6,9.12]
         # lines to watch out for 4,6, 9, 12
