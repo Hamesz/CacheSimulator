@@ -1,8 +1,11 @@
 P0 R 1
 P1 R 1
+v
 P0 W 1
+v
 P0 W 1
 P0 R 1
+h
 P2 R 1
 P1 W 1
 P2 W 1
@@ -13,3 +16,4 @@ P0 W 4
 P0 R 2052
 P3 W 2052
 P1 W 4
+p

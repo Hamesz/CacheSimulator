@@ -47,7 +47,7 @@ def main(trace_file, optimize=False):
             # input()
         # deal with other stuff
         elif(command == 'v'):
-            print('switch line by line reading')
+            # print('switch line by line reading')
             if (logger.level != logging.INFO):
                 logger.setLevel(logging.INFO)
             else:
@@ -55,11 +55,15 @@ def main(trace_file, optimize=False):
         elif(command == 'h'):
             print(f"{Statistic.hit_rate()}")
         elif(command == 'p'):
-            print('Print out cache content')
+            for c in caches:
+                contents = c.cache_contents()
+                print(f"Cache {c} contents:\n{contents}")
+    print()
     print(Statistic.key_statistics())
-    print(Statistic.debug_statistics())
+    # print(Statistic.debug_statistics())
     # save statistics to file
     save_statistics(trace_file)
+    Statistic.reset()
 
 
 if __name__ == '__main__':
@@ -67,10 +71,11 @@ if __name__ == '__main__':
     optimize = False
 
     trace1 = r'C:\Users\James H\git\CacheSimulator\data\trace1.txt'
-    main(trace1, optimize)
     trace2 = r'C:\Users\James H\git\CacheSimulator\data\trace2.txt'
-    
+    trace_test = r'C:\Users\James H\git\CacheSimulator\data\test_trace.txt'
+
+    # main(trace1, optimize)
     print()
-    
-    Statistic.reset()
-    main(trace2, optimize)
+    # main(trace2, optimize)
+    print()
+    main(trace_test, optimize)

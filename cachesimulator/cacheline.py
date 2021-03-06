@@ -3,12 +3,17 @@ from cachesimulator.config import LINE_SIZE
 from cachesimulator.statistics import Statistic
 
 class Line():
-    def __init__(self):
+    def __init__(self, idx):
         # initalise cache to be invalid
         self.state = INVALID
         self.tag = -1 
         self.dirty = False
         self.valid = False
+        self.idx = idx
+
+    def __repr__(self):
+        string = f"Cachline {self.idx}: State ({self.state}), Tag ({self.tag}), Valid ({self.valid}), dirty ({self.dirty}) "
+        return string
 
     def read(self, tag):
         self.tag = tag
@@ -49,7 +54,7 @@ class Line():
         self._tag = val
 
     @property
-    def dirty():
+    def dirty(self):
         return self._dirty
 
     @dirty.setter

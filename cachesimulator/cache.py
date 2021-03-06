@@ -27,7 +27,7 @@ class Cache():
     def _initialise_lines(self):
         self._cachelines = np.zeros(self._CACHE_SIZE, dtype=object)
         for idx, line in enumerate(self._cachelines):
-            new_line = Line()
+            new_line = Line(idx)
             self._cachelines[idx] = new_line
         
     # -- Writes -- #
@@ -186,7 +186,6 @@ class Cache():
             line.set_state(MSI.SHARED) # provides a cache probe
             line.read(tag)  
         
-
     def _read_hit(self, line, tag, address):
         """This is when a read happens and the state of either Shared or Modified
 
@@ -320,6 +319,16 @@ class Cache():
         else:
             return False
 
+
+    # -- Cache contents -- #
+    def cache_contents(self):
+        contents = ""
+        for line in self.cachelines:
+            if (line.valid == 1):
+                contents += str(line)
+                contents += "\n"
+        contents += "Other lines are invalid"
+        return contents
 
     @property
     def cachelines(self):

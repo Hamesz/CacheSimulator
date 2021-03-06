@@ -333,7 +333,7 @@ class Statistic:
     # -- Printing Info -- #
     @classmethod
     def debug_statistics(self):
-        string = f"""
+        string = f"""Instruction: {self.INSTRUCTIONS}
 Total Cache accesses: {self.CACHE_ACCESSES}
     Instruction cache accesses: {self.CACHE_ACCESSES - self.CACHE_ACCESSES_PREV}
 Total Cache probes: {self.CACHE_PROBES}
@@ -365,8 +365,7 @@ One hops: {self.ONE_HOPS}
 
     @classmethod
     def key_statistics(self):
-        string = f"""Instruction: {self.INSTRUCTIONS}
-Private-accesses: {self.PRIVATE_ACCESSES}
+        string = f"""Private-accesses: {self.PRIVATE_ACCESSES}
 Remote-accesses: {self.REMOTE_ACCESSES}
 Off-chip-accesses: {self.OFF_CHIP_ACCESS}
 Total-accesses: {self.PRIVATE_ACCESSES + self.REMOTE_ACCESSES + self.OFF_CHIP_ACCESS}
