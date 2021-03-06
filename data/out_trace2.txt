@@ -1,4 +1,3 @@
-Instruction: 583555
 Private-accesses: 491511
 Remote-accesses: 91537
 Off-chip-accesses: 507

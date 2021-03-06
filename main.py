@@ -63,7 +63,7 @@ def main(trace_file, optimize=False):
     # print(Statistic.debug_statistics())
     # save statistics to file
     save_statistics(trace_file)
-    Statistic.reset()
+    
 
 
 if __name__ == '__main__':
@@ -74,8 +74,11 @@ if __name__ == '__main__':
     trace2 = r'C:\Users\James H\git\CacheSimulator\data\trace2.txt'
     trace_test = r'C:\Users\James H\git\CacheSimulator\data\test_trace.txt'
 
+    # Statistic.reset()
     # main(trace1, optimize)
     print()
+    # Statistic.reset()
     # main(trace2, optimize)
     print()
+    # Statistic.reset()
     main(trace_test, optimize)

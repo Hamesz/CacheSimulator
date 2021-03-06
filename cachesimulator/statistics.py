@@ -304,7 +304,10 @@ class Statistic:
     @classmethod
     def average_latency(self):
         average = sum(self.REM_LATENCIES) + sum(self.PRIV_LATENCIES) + sum(self.OFF_CHIP_LATENCIES)
-        average = average/self.INSTRUCTIONS
+        try:
+            average = average/self.INSTRUCTIONS
+        except:
+            return 0
         return average
     
     @classmethod
