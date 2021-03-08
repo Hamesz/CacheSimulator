@@ -5,8 +5,9 @@ from cachesimulator.cache import Cache
 from cachesimulator.statistics import Statistic, save_statistics
 from cachesimulator.optimizer import Optimizer
 from data.trace_files import trace1, trace2, test_trace
-
+import sys
 import logging
+
 logger = logging.getLogger('cachesimulator.Logger')
 logger.setLevel(logging.WARNING)
 
@@ -21,21 +22,20 @@ def main(trace_file, optimize=False):
     # append the caches to the directory
     for c in caches:
         directory.append_sharer(c)
-    
+
     # set the optimizer
     Optimizer.OPTIMIZE = optimize
-
     # run the main code
     for entry in parsed_text:
         cache_id, command, address = entry
         cache = caches[cache_id]
-        
+
         # check the command
         if (command == 'R'):
             Statistic.add_instructions()
             cache.read(address)
             # logger.info(Statistic.debug_statistics())
-            
+
             Statistic.end_instruction()
             # logger.info(Statistic.key_statistics())
             # input()
@@ -55,7 +55,7 @@ def main(trace_file, optimize=False):
             else:
                 logger.setLevel(logging.WARNING)
         elif(command == 'h'):
-            print(f"{Statistic.hit_rate()}")
+            print(f"Hit Rate: {Statistic.hit_rate()}")
         elif(command == 'p'):
             for c in caches:
                 contents = c.cache_contents()
@@ -65,21 +65,14 @@ def main(trace_file, optimize=False):
     # print(Statistic.debug_statistics())
     # save statistics to file
     save_statistics(trace_file)
-    
+
 
 if __name__ == '__main__':
+
+    args = sys.argv[1:]
+    # first arg should be trace file
+    trace_file = args[0]
     # global OPTIMIZE
-    optimize = False
+    optimize = (( args[1]) == "True")
 
-    # trace1 = r'C:\Users\James H\git\CacheSimulator\data\trace1.txt'
-    # trace2 = r'C:\Users\James H\git\CacheSimulator\data\trace2.txt'
-    # trace_test = r'C:\Users\James H\git\CacheSimulator\data\test_trace.txt'
-
-    # Statistic.reset()
-    # main(trace1, optimize)
-    print()
-    # Statistic.reset()
-    # main(trace2, optimize)
-    print()
-    # Statistic.reset()
-    main(test_trace, optimize)
+    main(trace_file, optimize=optimize)

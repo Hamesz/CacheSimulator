@@ -190,10 +190,11 @@ class Directory():
         Returns:
             Cache: The closest cache such that the network latency takes the least amount of time
         """
-        logger.debug('Finding closest cache with caches: {}, to closest cache: {}'.format(caches, cache))
+        logger.info('Finding closest cache with caches: {}, to closest cache: {}'.format(caches, cache))
         distances = []
         for c in caches:
             if (Optimizer.OPTIMIZE):
+                logger.debug(f"using optimised: {Optimizer.OPTIMIZE}")
                 distance = ((c.id - cache.id)) % (NUMBER_OF_CACHES)
                 logger.debug('Distance between cache {} & {}: {}'.format(cache, c, distance))
                 distances.append(distance)
@@ -222,6 +223,7 @@ class Directory():
         # getting furthest cache to send invalidation too
         for c in caches:
             if (Optimizer.OPTIMIZE):
+                logger.debug(f"using optimised: {Optimizer.OPTIMIZE}")
                 distance = ((c.id - cache.id)) % (NUMBER_OF_CACHES)
                 logger.debug('Distance between cache {} & {}: {}'.format(cache, c, distance))
                 distances.append(distance)
